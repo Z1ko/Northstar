@@ -1,5 +1,6 @@
 #include <engine.hpp>
 
+/*
 class graphic_service : public ns::service
 {
 public:
@@ -47,6 +48,7 @@ public:
 private:
 	ns::w32_input_service* _input;
 };
+*/
 
 int main(int argc, char** argv)
 {
@@ -56,9 +58,8 @@ int main(int argc, char** argv)
 	ns::w32_input_service input(&kernel);
 	kernel.add_service(&input);
 
-	graphic_service graphics(&kernel);
+	ns::graphics_service graphics(&kernel);
 	kernel.add_service(&graphics);
-
 
 	kernel.start();
 	return 0;

@@ -72,13 +72,13 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <OutDir>$(ProjectDir)bin\debug\</OutDir>
     <IntDir>$(ProjectDir)build\debug\</IntDir>
-    <IncludePath>$(ProjectDir)include\;$(ProjectDir)src\;$(SolutionDir)Engine\src\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\;$(ProjectDir)src\;$(SolutionDir)Engine\src\;$(IncludePath);$(SolutionDir)Engine\include\</IncludePath>
     <LibraryPath>$(ProjectDir)lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <OutDir>$(ProjectDir)bin\release\</OutDir>
     <IntDir>$(ProjectDir)build\release\</IntDir>
-    <IncludePath>$(ProjectDir)include\;$(ProjectDir)src\;$(SolutionDir)Engine\bin\release\;$(IncludePath)</IncludePath>
+    <IncludePath>$(ProjectDir)include\;$(ProjectDir)src\;$(SolutionDir)Engine\bin\release\;$(IncludePath);$(SolutionDir)Engine\include\</IncludePath>
     <LibraryPath>$(ProjectDir)lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -86,12 +86,16 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>NS32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>glew32s.lib;NS32.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <SubSystem>Windows</SubSystem>
       <EntryPointSymbol>mainCRTStartup</EntryPointSymbol>
     </Link>
+    <ProjectReference>
+      <UseLibraryDependencyInputs>true</UseLibraryDependencyInputs>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -128,6 +132,11 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Engine\Engine.vcxproj">
+      <Project>{8d0f9055-0a1c-4adb-8454-5dc898a5f9a1}</Project>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

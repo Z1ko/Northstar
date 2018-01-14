@@ -45,7 +45,7 @@ namespace ns
 	private:
 		//Tutti i servizi registrati
 		vector<service*> _services;
-
+		
 		//Servizi divisi per priorità
 		set<service*, update_comp> _updateList;
 		set<service*, render_comp> _renderList;

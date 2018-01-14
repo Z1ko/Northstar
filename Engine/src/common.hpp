@@ -6,6 +6,10 @@
 #include <algorithm>
 #include <set>
 
+#define GLEW_STATIC
+#include <glew/glew.h>
+#include <gl/GL.h>
+
 namespace ns
 {
 	//Perchè sì

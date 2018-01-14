@@ -92,6 +92,12 @@
     <PostBuildEvent>
       <Command>copy /Y "$(ProjectDir)bin\debug\NS32.lib" "$(SolutionDir)Game\lib\"</Command>
     </PostBuildEvent>
+    <Lib>
+      <AdditionalDependencies>glew32s.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -131,16 +137,20 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\common.hpp" />
+    <ClInclude Include="src\graphics\context.hpp" />
     <ClInclude Include="src\core\event.hpp" />
     <ClInclude Include="src\core\kernel.hpp" />
     <ClInclude Include="src\core\service.hpp" />
     <ClInclude Include="src\engine.hpp" />
+    <ClInclude Include="src\graphics\graphics.hpp" />
     <ClInclude Include="src\input\input.hpp" />
     <ClInclude Include="src\utils\path.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\graphics\context.cpp" />
     <ClCompile Include="src\core\kernel.cpp" />
     <ClCompile Include="src\core\service.cpp" />
+    <ClCompile Include="src\graphics\graphics.cpp" />
     <ClCompile Include="src\input\input.cpp" />
     <ClCompile Include="src\utils\path.cpp" />
   </ItemGroup>
