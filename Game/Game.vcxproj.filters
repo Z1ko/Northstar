@@ -19,7 +19,4 @@
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>
-  <ItemGroup>
-    <Library Include="lib\NS32.lib" />
-  </ItemGroup>
 </Project>
