@@ -8,7 +8,7 @@ namespace ns
 	void gl_context::attach_window(void* platform_window)
 	{
 		HWND window = (HWND)platform_window;
-		HDC device_context = GetDC(window);
+		_device = GetDC(window);
 
 		PIXELFORMATDESCRIPTOR pfd =
 		{
@@ -30,19 +30,25 @@ namespace ns
 			0, 0, 0
 		};
 
-		int res = ChoosePixelFormat(device_context, &pfd);
+		int res = ChoosePixelFormat((HDC)_device, &pfd);
 		if (res == 0)
 		{
 			//ERRORE
 			printf("\nIl pixel formato richiesto non è disponibile");
 			return;
 		}
-		SetPixelFormat(device_context, res, &pfd);
+		SetPixelFormat((HDC)_device, res, &pfd);
 
-		_handle = wglCreateContext(device_context);
-		wglMakeCurrent(device_context, (HGLRC)_handle);
+		_handle = wglCreateContext((HDC)_device);
+		wglMakeCurrent((HDC)_device, (HGLRC)_handle);
 
 		glewExperimental = true;
 		glewInit();
+	}
+
+	//Swappa il backbuffer
+	void gl_context::swap_buffer()
+	{
+		SwapBuffers((HDC)_device);
 	}
 }

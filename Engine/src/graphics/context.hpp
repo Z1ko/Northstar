@@ -10,8 +10,13 @@ namespace ns
 		//Collega il contesto ad una finestra
 		void attach_window(void* platform_window);
 
+		//Swappa il backbuffer
+		void swap_buffer();
+
 	private:
 		//Handle della piattaforma per il contesto
 		void* _handle;
+		//Handle al device associato
+		void* _device;
 	};
 }
