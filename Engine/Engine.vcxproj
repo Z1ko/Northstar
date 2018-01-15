@@ -144,6 +144,9 @@
     <ClInclude Include="src\engine.hpp" />
     <ClInclude Include="src\graphics\graphics.hpp" />
     <ClInclude Include="src\input\input.hpp" />
+    <ClInclude Include="src\platform\platform.hpp" />
+    <ClInclude Include="src\platform\win32.hpp" />
+    <ClInclude Include="src\resources\surface.hpp" />
     <ClInclude Include="src\utils\path.hpp" />
   </ItemGroup>
   <ItemGroup>
@@ -152,6 +155,8 @@
     <ClCompile Include="src\core\service.cpp" />
     <ClCompile Include="src\graphics\graphics.cpp" />
     <ClCompile Include="src\input\input.cpp" />
+    <ClCompile Include="src\platform\platform.cpp" />
+    <ClCompile Include="src\resources\surface.cpp" />
     <ClCompile Include="src\utils\path.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

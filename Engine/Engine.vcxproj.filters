@@ -42,6 +42,15 @@
     <ClInclude Include="src\graphics\graphics.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\resources\surface.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\win32.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\platform\platform.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\path.cpp">
@@ -60,6 +69,12 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\graphics\graphics.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\resources\surface.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\platform\platform.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

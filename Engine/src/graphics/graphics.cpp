@@ -1,5 +1,7 @@
 #include "graphics.hpp"
 
+#include "../platform/platform.hpp"
+
 namespace ns
 {
 	graphics_service::graphics_service(kernel* kernel)
@@ -11,7 +13,8 @@ namespace ns
 	void graphics_service::initialize()
 	{
 		//Crea contesto opengl
-		_context.attach_window(_kernel->window_handle());
+		platform_service* platform = (platform_service*)_kernel->get_service("platform");
+		_context.attach_window(platform->window());
 	}
 
 	//Aggiorna renderer e pulisce lo schermo

@@ -4,6 +4,8 @@
 #include "../core/service.hpp"
 #include "../core/event.hpp"
 
+#include "../platform/platform.hpp"
+
 namespace ns
 {
 	enum class key_codes : u32 //VK_WIN32
@@ -68,15 +70,15 @@ namespace ns
 
 	//Servizio che trasforma i messaggi della piattaforma in eventi interni.
 	//Specifico per windows
-	class w32_input_service : public service
+	class input_service : public service
 	{
 	public:
-		w32_input_service(kernel* kernel);
+		input_service(kernel* kernel);
 
 		void initialize() override;
 
 		//Risponde agli eventi del sistema operativo
-		void handle_platform_event(void* platform_data);
+		void handle_platform_event(os_event_data* event);
 
 		//Genera eventi di ripetizione
 		void update() override;
@@ -103,5 +105,8 @@ namespace ns
 
 		//Posizione attuale del mouse all'interno della finestra
 		struct { u32 x, y; } _mouse_position;
+
+		//Servizio che supervisiona il SO
+		platform_service* _platform;
 	};
 }

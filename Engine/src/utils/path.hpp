@@ -10,6 +10,7 @@ namespace ns
 	public:
 		//Risolve testo
 		path(const string& text);
+		path(const char* text);
 
 		//Ottiene testo risolto
 		inline const string& text()

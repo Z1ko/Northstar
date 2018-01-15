@@ -15,7 +15,11 @@
 #include "core/service.hpp"
 #include "core/event.hpp"
 
-#include <input/input.hpp>
+#include "platform/platform.hpp"
 
-#include <graphics/context.hpp>
-#include <graphics/graphics.hpp>
+#include "input/input.hpp"
+
+#include "graphics/context.hpp"
+#include "graphics/graphics.hpp"
+
+#include "resources/surface.hpp"

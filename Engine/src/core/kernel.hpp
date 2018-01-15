@@ -27,20 +27,22 @@ namespace ns
 	private: //Window
 
 		//Crea contesto della finestra
-		void create_w32_context();
+		void create_console();
 
 	public: //Getters
 
 		//Ottiene pointer alla struttura 
 		//che rappresenta una finestra in questa piattaforma
+		/*
 		inline void* window_handle() {
 			return _window_handle;
 		}
+		*/
 
 	public: //Eventi pubblici
 
 		//Evento generato dal contesto windows
-		event<void*> platform_event;
+		//event<void*> platform_event;
 
 	private:
 		//Tutti i servizi registrati
@@ -54,6 +56,6 @@ namespace ns
 		bool _running = true;
 
 		//Handle alla finestra della piattaforma
-		void* _window_handle;
+		//void* _window_handle;
 	};
 }

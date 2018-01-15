@@ -6,6 +6,7 @@
 
 namespace ns
 {
+	//Mantiene il contesto opengl e la finestra (quindi si occupa anche di ottenere gli eventi del sistema operativo)
 	class graphics_service : public service
 	{
 	public:

@@ -7,6 +7,10 @@ namespace ns
 		_resolved_text = path::resolve(text);
 	}
 
+	path::path(const char* text) {
+		_resolved_text = path::resolve(text);
+	}
+
 	//Tutte le macro registrate
 	unordered_map<string, string> path::_macros;
 

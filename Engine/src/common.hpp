@@ -10,11 +10,14 @@
 #include <glew/glew.h>
 #include <gl/GL.h>
 
+#define dtor ~
+
 namespace ns
 {
 	//Perchè sì
 	using namespace std;
 
 	typedef unsigned int u32;
+	typedef signed   int i32;
 	typedef float f32;
 }

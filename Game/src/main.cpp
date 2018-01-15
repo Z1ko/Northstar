@@ -1,21 +1,20 @@
 #include <engine.hpp>
 
-/*
-class graphic_service : public ns::service
+class debug_service : public ns::service
 {
 public:
-	graphic_service(ns::kernel* kernel)
-		: service(kernel, "input", NS_CORE_SERVICE_GRAPHICS)
+	debug_service(ns::kernel* kernel)
+		: service(kernel, "test", NS_CORE_SERVICE_PRIORITY(30, 30))
 	{
 	}
 
 	void initialize() override {
-
 		//Registra evento tastiera
-		_input = (ns::w32_input_service*)_kernel->get_service("input");
-		NS_EVENT_SUBSCRIBE(_input->key_event,   this, &graphic_service::on_key_event );
-		NS_EVENT_SUBSCRIBE(_input->text_event,  this, &graphic_service::on_text_event);
-		NS_EVENT_SUBSCRIBE(_input->mouse_event, this, &graphic_service::on_mouse_move);
+		_input = (ns::input_service*)_kernel->get_service("input");
+
+		NS_EVENT_SUBSCRIBE(_input->key_event,   this, &debug_service::on_key_event );
+		NS_EVENT_SUBSCRIBE(_input->text_event,  this, &debug_service::on_text_event);
+		NS_EVENT_SUBSCRIBE(_input->mouse_event, this, &debug_service::on_mouse_move);
 	}
 
 	//Risponde agli eventi del sistema operativo
@@ -46,20 +45,25 @@ public:
 	void render() override { }
 
 private:
-	ns::w32_input_service* _input;
+	ns::input_service* _input;
 };
-*/
+
 
 int main(int argc, char** argv)
 {
 	//Cuore dell'engine
 	ns::kernel kernel(argc, argv);
 
-	ns::w32_input_service input(&kernel);
+	//ns::surface spritesheet("@(root)logo.png");
+
+	ns::input_service input(&kernel);
 	kernel.add_service(&input);
 
 	ns::graphics_service graphics(&kernel);
 	kernel.add_service(&graphics);
+
+	debug_service debug(&kernel);
+	kernel.add_service(&debug);
 
 	kernel.start();
 	return 0;

@@ -3,9 +3,11 @@
 #include <Windows.h>
 #include <Windowsx.h>
 
+#include "../platform/win32.hpp"
+
 namespace ns
 {
-	w32_input_service::w32_input_service(kernel* kernel)
+	input_service::input_service(kernel* kernel)
 		: service(kernel, "input", NS_CORE_SERVICE_INPUT)
 	{
 		_mouse_position = { 0,0 };
@@ -17,23 +19,15 @@ namespace ns
 	}
 
 	//Registra evento piattaforma
-	void w32_input_service::initialize() {
-		NS_EVENT_SUBSCRIBE(_kernel->platform_event, this, &w32_input_service::handle_platform_event);
+	void input_service::initialize() {
+		_platform = (platform_service*)_kernel->get_service("platform");
+		NS_EVENT_SUBSCRIBE(_platform->os_event, this, &input_service::handle_platform_event);
 	}
 
-	//Evento di windows
-	struct w32_event_data
-	{
-		UINT message;
-
-		WPARAM wParam;
-		LPARAM lParam;
-	};
-
 	//Risponde agli eventi del sistema operativo
-	void w32_input_service::handle_platform_event(void* platform_data)
+	void input_service::handle_platform_event(os_event_data* event)
 	{
-		w32_event_data* w32data = (w32_event_data*)platform_data;
+		w32_event_data* w32data = (w32_event_data*)event;
 
 		static u32 key_offset = 0x41;
 		switch (w32data->message)
@@ -124,7 +118,7 @@ namespace ns
 	}
 
 	//Controlla lo stato dei tasti
-	void w32_input_service::update()
+	void input_service::update()
 	{
 		static u32 key_offset = 0x41;
 		for(u32 i = 0; i < 26; ++i)
@@ -144,16 +138,16 @@ namespace ns
 	}
 
 	//Ottiene lo stato di un tasto
-	key_states w32_input_service::key_state(key_codes key)
+	key_states input_service::key_state(key_codes key)
 	{
 		u32 key_offset = (u32)key - (u32)key_codes::A;
 		return _states[key_offset];
 	}
 
 	//Setta la posizione del mouse (relativa alla finestra)
-	void w32_input_service::set_mouse_position(u32 x, u32 y)
+	void input_service::set_mouse_position(u32 x, u32 y)
 	{
-		HWND window = (HWND)_kernel->window_handle();
+		HWND window = (HWND)_platform->window();
 		POINT point{ x, y };
 
 		ScreenToClient(window, &point);
