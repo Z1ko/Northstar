@@ -137,26 +137,38 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="src\common.hpp" />
+    <ClInclude Include="src\core\application.hpp" />
     <ClInclude Include="src\graphics\context.hpp" />
     <ClInclude Include="src\core\event.hpp" />
     <ClInclude Include="src\core\kernel.hpp" />
     <ClInclude Include="src\core\service.hpp" />
     <ClInclude Include="src\engine.hpp" />
     <ClInclude Include="src\graphics\graphics.hpp" />
+    <ClInclude Include="src\graphics\shader.hpp" />
+    <ClInclude Include="src\graphics\texture.hpp" />
     <ClInclude Include="src\input\input.hpp" />
     <ClInclude Include="src\platform\platform.hpp" />
     <ClInclude Include="src\platform\win32.hpp" />
     <ClInclude Include="src\resources\surface.hpp" />
+    <ClInclude Include="src\scene\entity.hpp" />
+    <ClInclude Include="src\scene\scene.hpp" />
+    <ClInclude Include="src\utils\io.hpp" />
     <ClInclude Include="src\utils\path.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\core\application.cpp" />
     <ClCompile Include="src\graphics\context.cpp" />
     <ClCompile Include="src\core\kernel.cpp" />
     <ClCompile Include="src\core\service.cpp" />
     <ClCompile Include="src\graphics\graphics.cpp" />
+    <ClCompile Include="src\graphics\shader.cpp" />
+    <ClCompile Include="src\graphics\texture.cpp" />
     <ClCompile Include="src\input\input.cpp" />
     <ClCompile Include="src\platform\platform.cpp" />
     <ClCompile Include="src\resources\surface.cpp" />
+    <ClCompile Include="src\scene\entity.cpp" />
+    <ClCompile Include="src\scene\scene.cpp" />
+    <ClCompile Include="src\utils\io.cpp" />
     <ClCompile Include="src\utils\path.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

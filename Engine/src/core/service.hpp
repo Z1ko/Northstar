@@ -11,16 +11,19 @@
 NS_CORE_SERVICE_PRIORITY(10, 0)
 
 #define NS_CORE_SERVICE_AUDIO \
-NS_CORE_SERVICE_PRIORITY(2, 10)
+NS_CORE_SERVICE_PRIORITY(3, 10)
 
 #define NS_CORE_SERVICE_ASSETS \
-NS_CORE_SERVICE_PRIORITY(3, 11)
+NS_CORE_SERVICE_PRIORITY(4, 11)
 
 #define NS_CORE_SERVICE_INPUT \
 NS_CORE_SERVICE_PRIORITY(1, 12)
 
 #define NS_CORE_SERVICE_PLATFORM \
 NS_CORE_SERVICE_PRIORITY(0, 13)
+
+#define NS_CORE_SERVICE_SCENE \
+NS_CORE_SERVICE_PRIORITY(2, 13)
 
 //Etc
 
@@ -54,7 +57,7 @@ namespace ns
 		//Identificativo
 		string _name;
 
-		//Ordine con cui verrà chiamato questo servizio durante un tick del kernel
+		//Ordine con cui verrà chiamato questo servizio durante un tick del kernel o l'inizializzazione
 		u32 _updatePriority, _renderPriority;
 	};
 
@@ -63,7 +66,7 @@ namespace ns
 		bool operator() (service* left, service* right) const;
 	};
 
-	//Usato nei set per ordinare i servizi in base alla priorità di updating
+	//Usato nei set per ordinare i servizi in base alla priorità di updating e inizializzazione
 	struct update_comp {
 		bool operator() (service* left, service* right) const;
 	};

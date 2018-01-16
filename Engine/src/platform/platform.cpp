@@ -53,7 +53,7 @@ namespace ns
 			printf("\nErrore creazione contexto W32");
 		}
 
-		RECT size = { 0, 0, 500, 500 };
+		RECT size = { 0, 0, 600, 600 };
 		AdjustWindowRect(&size, WS_OVERLAPPEDWINDOW | WS_VISIBLE, FALSE);
 
 		u32 w = size.right - size.left;

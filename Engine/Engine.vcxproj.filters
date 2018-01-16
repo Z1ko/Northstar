@@ -51,6 +51,24 @@
     <ClInclude Include="src\platform\platform.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\texture.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\shader.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\utils\io.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\scene.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\scene\entity.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\core\application.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\path.cpp">
@@ -75,6 +93,24 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\platform\platform.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\texture.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\shader.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\io.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\scene.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\entity.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\core\application.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

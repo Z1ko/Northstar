@@ -3,6 +3,7 @@
 
 #include "../utils/path.hpp"
 
+/*
 namespace ns
 {
 	struct rgba32
@@ -37,6 +38,10 @@ namespace ns
 			return _width * _height * _bpp;
 		}
 
+		inline char* pixels() {
+			return _pixels;
+		}
+
 	private:
 		//Dimensioni e numero di bit per pixel
 		i32 _width, _height, _bpp;
@@ -44,3 +49,4 @@ namespace ns
 		char* _pixels;
 	};
 }
+*/

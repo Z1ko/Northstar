@@ -6,6 +6,12 @@
 
 namespace ns
 {
+	class application;
+	class platform_service;
+	class input_service;
+	class graphics_service;
+	class scene_service;
+
 	//Cuore pulsante dell'engine, amministra i servizi offerti, distribuisce eventi etc
 	class kernel
 	{
@@ -14,13 +20,12 @@ namespace ns
 		kernel(char argc, char** argv);
 
 		//Avvia applicazione
-		void start();
+		void start(application* app);
 
 	public: //Services
 
 		//Aggiunge servizio
 		void add_service(service* service);
-
 		//Ottiene un servizio registrato, ritorna null se non esiste
 		service* get_service(const string& name);
 
@@ -28,21 +33,6 @@ namespace ns
 
 		//Crea contesto della finestra
 		void create_console();
-
-	public: //Getters
-
-		//Ottiene pointer alla struttura 
-		//che rappresenta una finestra in questa piattaforma
-		/*
-		inline void* window_handle() {
-			return _window_handle;
-		}
-		*/
-
-	public: //Eventi pubblici
-
-		//Evento generato dal contesto windows
-		//event<void*> platform_event;
 
 	private:
 		//Tutti i servizi registrati
@@ -57,5 +47,13 @@ namespace ns
 
 		//Handle alla finestra della piattaforma
 		//void* _window_handle;
+
+		//SERVIZI CORE
+		platform_service*	_platform;
+		input_service*		_input;
+		graphics_service*	_graphics;
+		scene_service*		_scene;
 	};
 }
+
+#include "kernel.hpp"

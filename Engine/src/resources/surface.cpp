@@ -3,6 +3,7 @@
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
+/*
 namespace ns
 {
 	surface::surface()
@@ -25,3 +26,4 @@ namespace ns
 		stbi_image_free(_pixels);
 	}
 }
+*/

@@ -31,6 +31,9 @@ namespace ns
 		//Aggiunge una nuova macro
 		static void add_macro(const string& name, const string& value);
 
+		//Trova nome del file (ultima parola)
+		static string name(path& filepath);
+
 	private:
 		//Tutte le macro registrate
 		static unordered_map<string, string> _macros;

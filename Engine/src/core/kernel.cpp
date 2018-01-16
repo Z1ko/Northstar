@@ -1,6 +1,12 @@
 #include "kernel.hpp"
 
 #include "../utils/path.hpp"
+#include "application.hpp"
+
+#include "../input/input.hpp"
+#include "../graphics/graphics.hpp"
+#include "../scene/scene.hpp"
+
 #include "../platform/win32.hpp"
 
 namespace ns
@@ -21,13 +27,23 @@ namespace ns
 		//Cartella dov'è presente l'exe
 		path::add_macro("root", find_root_directory(argv[0]));
 
-		//Non ha senso un kernel senza questo
-		platform_service* platform = new platform_service(this);
-		this->add_service(platform);
+		//SERVIZI CORE
+
+		_platform = new platform_service(this);
+		this->add_service(_platform);
+
+		_input = new input_service(this);
+		this->add_service(_input);
+
+		_graphics = new graphics_service(this);
+		this->add_service(_graphics);
+
+		_scene = new scene_service(this);
+		this->add_service(_scene);
 	}
 
 	//Avvia applicazione
-	void kernel::start()
+	void kernel::start(application* app)
 	{
 		//Crea console di base
 		create_console();
@@ -36,6 +52,10 @@ namespace ns
 		for (service* serv : _updateList)
 			serv->initialize();
 
+		//Inizializza applicazione
+		app->set_core_services(_platform, _input, _graphics, _scene);
+		app->initialize();
+
 		while(_running)
 		{
 			//Aggiorna tutti i sistemi in ordine
@@ -43,6 +63,7 @@ namespace ns
 				serv->update();
 
 			//Aggiorna applicazione
+			app->update();
 
 			//Aggiorna tutti i sistemi in ordine
 			for (service* serv : _renderList)

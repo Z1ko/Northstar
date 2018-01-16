@@ -46,4 +46,11 @@ namespace ns
 		_macros.emplace(name, value);
 	}
 
+	//Trova nome del file (ultima parola)
+	string path::name(path& filepath)
+	{
+		u32 beg = filepath.text().find_last_of('/') + 1;
+		return filepath.text().substr(beg);
+	}
+
 }

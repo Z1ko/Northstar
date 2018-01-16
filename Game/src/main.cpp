@@ -15,6 +15,17 @@ public:
 		NS_EVENT_SUBSCRIBE(_input->key_event,   this, &debug_service::on_key_event );
 		NS_EVENT_SUBSCRIBE(_input->text_event,  this, &debug_service::on_text_event);
 		NS_EVENT_SUBSCRIBE(_input->mouse_event, this, &debug_service::on_mouse_move);
+
+		_scene = (ns::scene_service*)_kernel->get_service("scene");
+		_scene->register_template("human", [](ns::entity* base) -> ns::entity* {
+			printf("\nCreazione umano! (%s)",base->name().c_str());
+			return base;
+		});
+
+		player = _scene->create_template_entity("human", "player");
+
+		//ns::surface spritesheat("@(root)logo.png");
+		//_logo = ns::texture(&spritesheat);
 	}
 
 	//Risponde agli eventi del sistema operativo
@@ -46,8 +57,20 @@ public:
 
 private:
 	ns::input_service* _input;
+	ns::scene_service* _scene;
+
+	ns::entity* player;
+
+	//Logo dell'engine
+	//ns::texture _logo;
 };
 
+class sandbox : public ns::application
+{
+public:
+	void initialize() override {
+	}
+};
 
 int main(int argc, char** argv)
 {
@@ -56,15 +79,11 @@ int main(int argc, char** argv)
 
 	//ns::surface spritesheet("@(root)logo.png");
 
-	ns::input_service input(&kernel);
-	kernel.add_service(&input);
-
-	ns::graphics_service graphics(&kernel);
-	kernel.add_service(&graphics);
-
 	debug_service debug(&kernel);
 	kernel.add_service(&debug);
 
-	kernel.start();
+	sandbox app;
+	kernel.start(&app);
+
 	return 0;
 }
