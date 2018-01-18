@@ -47,7 +47,11 @@ namespace ns
 		//Chiamato quando tutti i servizi sono stati registrati
 		virtual void initialize() = 0;
 
+		//Invocata prima di aggiornare l'applicazione
 		virtual void update() { };
+		//invocata subito dopo aver aggiornato l'applicazione
+		virtual void post_update() { };
+
 		virtual void render() { };
 
 	protected:

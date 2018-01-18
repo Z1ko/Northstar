@@ -18,4 +18,14 @@ namespace ns
 	void entity::destroy() {
 		_scene->destroy_entity(_id);
 	}
+
+	//Rimuove tutti i componenti
+	void entity::clear() {
+		for (u32 i = 0; i < NS_COMPONENT_TYPES; ++i) {
+			if (_signature[i]) {
+				_signature[i] = false;
+				_scene->bucket(i)->remove(_id);
+			}
+		}
+	}
 }

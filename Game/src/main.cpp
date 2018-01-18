@@ -2,6 +2,52 @@
 
 using namespace ns;
 
+class sprite : public component<sprite>
+{
+public:
+	sprite(ident entity_id, f32 x, f32 y, f32 w, f32 h)
+		: component(entity_id), x(x), y(y), w(w), h(h)
+	{
+	}
+
+public:
+	f32 x, y, w, h;
+};
+
+class sprite_renderer : public renderer
+{
+public:
+	sprite_renderer(graphics_service* graphics, scene_service* scene)
+		: renderer(graphics, scene)
+	{
+	}
+
+	void pre_render() override {
+		_sprites.clear();
+		for (sprite& sprite : _scene->bucket<sprite>()->components())
+			_sprites.push_back(&sprite);
+	}
+
+	void render() override {
+
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		glOrtho(0.0, _graphics->get_window().width(), _graphics->get_window().height(), 0, -0.1, 100.0);
+
+		glBegin(GL_QUADS);
+		for (auto* sprite : _sprites) {
+			glVertex2f(sprite->x,  sprite->y);
+			glVertex2f(sprite->x + sprite->w,  sprite->y);
+			glVertex2f(sprite->x + sprite->w,  sprite->y + sprite->h);
+			glVertex2f(sprite->x,  sprite->y + sprite->h);
+		}
+		glEnd();
+	}
+
+private:
+	vector<sprite*> _sprites;
+};
+
 class debug_service : public ns::service
 {
 public:
@@ -20,17 +66,22 @@ public:
 
 		_scene = (ns::scene_service*)_kernel->get_service("scene");
 		_scene->register_template("human", [](ns::entity* base) -> ns::entity* {
-			printf("\nCreazione umano! (%s)",base->name().c_str());
+			base->assign<sprite>(30.0f, 20.0f, 100.0f, 100.0f);
 			return base;
 		});
 
 		player = _scene->create_template_entity("human", "player");
+		sprite* pos = player->get<sprite>();
+
+		_graphics = (graphics_service*)_kernel->get_service("graphics");
+		_renderer = new sprite_renderer(_graphics, _scene);
+		_graphics->add_renderer(_renderer);
 
 		//ns::surface spritesheat("@(root)logo.png");
 		//_logo = ns::texture(&spritesheat);
 
-		shader::include("lights", "@(shaders)includes/lights.glsl");
-		shader shad("@(shaders)standard.glsl");
+		//shader::include("lights", "@(shaders)includes/lights.glsl");
+		//shader shad("@(shaders)standard.glsl");
 	}
 
 	//Risponde agli eventi del sistema operativo
@@ -61,10 +112,13 @@ public:
 	void render() override { }
 
 private:
-	ns::input_service* _input;
-	ns::scene_service* _scene;
+	ns::input_service*    _input;
+	ns::scene_service*    _scene;
+	ns::graphics_service* _graphics;
 
 	ns::entity* player;
+
+	sprite_renderer* _renderer;
 
 	//Logo dell'engine
 	//ns::texture _logo;

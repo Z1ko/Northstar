@@ -85,6 +85,10 @@ namespace ns
 			app->update();
 
 			//Aggiorna tutti i sistemi in ordine
+			for (service* serv : _updateList)
+				serv->post_update();
+
+			//Aggiorna tutti i sistemi in ordine
 			for (service* serv : _renderList)
 				serv->render();
 		}

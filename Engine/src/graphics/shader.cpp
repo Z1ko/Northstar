@@ -1,8 +1,8 @@
 #include "shader.hpp"
 
-
 namespace ns
 {
+	/*
 	shader::shader()
 		: _handle(0)
 	{

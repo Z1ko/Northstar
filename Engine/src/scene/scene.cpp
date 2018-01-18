@@ -5,6 +5,8 @@ namespace ns
 	scene_service::scene_service(kernel* kernel)
 		: service(kernel, "scene", NS_CORE_SERVICE_SCENE)
 	{
+		for (u32 i = 0; i < NS_COMPONENT_TYPES; ++i)
+			_buckets[i] = nullptr;
 	}
 
 	//Crea nuova entità vuota

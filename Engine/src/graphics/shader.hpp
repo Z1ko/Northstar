@@ -4,9 +4,9 @@
 #include "../utils/path.hpp"
 #include "../utils/io.hpp"
 
-
 namespace ns
 {
+	/*
 	enum class shader_type
 	{
 		undefined,
@@ -58,4 +58,5 @@ namespace ns
 		//Tutti i file includibili caricati
 		static unordered_map<string, string> _included;
 	};
+	*/
 }

@@ -72,6 +72,12 @@
     <ClInclude Include="src\utils\settings.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\scene\component.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
+    <ClInclude Include="src\graphics\renderer.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\path.cpp">
@@ -117,6 +123,12 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\utils\settings.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\scene\component.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\graphics\renderer.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

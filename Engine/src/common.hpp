@@ -4,6 +4,7 @@
 #include <string>
 #include <unordered_map>
 #include <sstream>
+#include <bitset>
 #include <algorithm>
 #include <set>
 
