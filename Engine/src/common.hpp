@@ -10,7 +10,7 @@
 #include <glew/glew.h>
 #include <gl/GL.h>
 
-#define dtor ~
+#include <picojson/picojson.h>
 
 namespace ns
 {

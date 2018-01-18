@@ -69,6 +69,9 @@
     <ClInclude Include="src\core\application.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\utils\settings.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\path.cpp">
@@ -111,6 +114,9 @@
       <Filter>File di origine</Filter>
     </ClCompile>
     <ClCompile Include="src\core\application.cpp">
+      <Filter>File di origine</Filter>
+    </ClCompile>
+    <ClCompile Include="src\utils\settings.cpp">
       <Filter>File di origine</Filter>
     </ClCompile>
   </ItemGroup>

@@ -154,6 +154,7 @@
     <ClInclude Include="src\scene\scene.hpp" />
     <ClInclude Include="src\utils\io.hpp" />
     <ClInclude Include="src\utils\path.hpp" />
+    <ClInclude Include="src\utils\settings.hpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\core\application.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="src\scene\scene.cpp" />
     <ClCompile Include="src\utils\io.cpp" />
     <ClCompile Include="src\utils\path.cpp" />
+    <ClCompile Include="src\utils\settings.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

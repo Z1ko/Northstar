@@ -1,6 +1,7 @@
 #include "kernel.hpp"
 
 #include "../utils/path.hpp"
+
 #include "application.hpp"
 
 #include "../input/input.hpp"
@@ -24,8 +25,9 @@ namespace ns
 	//Inizializza tutti i servizi e macro standard, carica impostazioni etc
 	kernel::kernel(char argc, char** argv)
 	{
-		//Cartella dov'è presente l'exe
+		//Cartella dov'è presente l'exe e carica opzioni
 		path::add_macro("root", find_root_directory(argv[0]));
+		this->load_standard_options();
 
 		//SERVIZI CORE
 
@@ -40,6 +42,19 @@ namespace ns
 
 		_scene = new scene_service(this);
 		this->add_service(_scene);
+	}
+
+	//Carica impostazioni dalla posizione standard e le processa
+	void kernel::load_standard_options() {
+		//Carica opzioni principali
+		if (_settings.load("@(root)/options.json")) {
+			json_value macros = _settings.find("macros");
+			if (macros) {
+				for (auto& macro : macros.values()) {
+					path::add_macro(macro.first, path::resolve(macro.second.get<string>()));
+				}
+			}
+		}
 	}
 
 	//Avvia applicazione

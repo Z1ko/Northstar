@@ -13,8 +13,14 @@ namespace ns
 	void graphics_service::initialize()
 	{
 		//Crea contesto opengl
-		platform_service* platform = (platform_service*)_kernel->get_service("platform");
-		_context.attach_window(platform->window());
+		_platform = (platform_service*)_kernel->get_service("platform");
+		_window = _platform->get_window();
+		_context.attach_window(_window.handle());
+
+		//Per debug
+		//glMatrixMode(GL_PROJECTION);
+		//glLoadIdentity();
+		//glOrtho(0.0, _window.width(), _window.height(), 0, -0.1, 100.0);
 	}
 
 	//Aggiorna renderer e pulisce lo schermo
@@ -27,9 +33,9 @@ namespace ns
 		glColor3f(1.0f, 0.0f, 0.0f);
 		glVertex2f(-0.5f, -0.5f);
 		glColor3f(0.0f, 1.0f, 0.0f);
-		glVertex2f( 0.5f, -0.5f);
+		glVertex2f(0.5f, -0.5f);
 		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f( 0.0f,  0.5f);
+		glVertex2f(0.0f, 0.5f);
 		glEnd();
 
 		//Swappa buffers

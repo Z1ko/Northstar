@@ -1,5 +1,7 @@
 #include <engine.hpp>
 
+using namespace ns;
+
 class debug_service : public ns::service
 {
 public:
@@ -26,6 +28,9 @@ public:
 
 		//ns::surface spritesheat("@(root)logo.png");
 		//_logo = ns::texture(&spritesheat);
+
+		shader::include("lights", "@(shaders)includes/lights.glsl");
+		shader shad("@(shaders)standard.glsl");
 	}
 
 	//Risponde agli eventi del sistema operativo
@@ -67,9 +72,16 @@ private:
 
 class sandbox : public ns::application
 {
+	const u32 tile_w = 16;
+	const u32 tile_h = 16;
+
 public:
 	void initialize() override {
+		_window = _platform->get_window();
 	}
+
+private:
+	window _window;
 };
 
 int main(int argc, char** argv)

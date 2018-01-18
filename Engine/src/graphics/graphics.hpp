@@ -4,6 +4,8 @@
 #include "../core/kernel.hpp"
 #include "../core/service.hpp"
 
+#include "../platform/platform.hpp"
+
 namespace ns
 {
 	//Mantiene il contesto opengl e la finestra (quindi si occupa anche di ottenere gli eventi del sistema operativo)
@@ -21,5 +23,8 @@ namespace ns
 	private:
 		//Contesto opengl che permette il rendering
 		gl_context _context;
+
+		platform_service* _platform;
+		window			  _window;
 	};
 }

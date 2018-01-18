@@ -11,6 +11,31 @@ namespace ns
 	{
 	};
 
+	class window
+	{
+	public:
+		//Ottiene lunghezza e altezza
+		window();
+		window(void* handle);
+
+		inline u32 width() {
+			return _width;
+		}
+		inline u32 height() {
+			return _height;
+		}
+
+		//Ritorna hadle all'handle della piattaforma
+		inline void* handle() {
+			return _handle;
+		}
+
+	private:
+		//Dimensioni
+		u32 _width, _height;
+		void* _handle;
+	};
+
 	//Servizio dedicato alla creazione della finestra e l'acquisizione di eventi dal SO
 	class platform_service : public service
 	{
@@ -26,8 +51,8 @@ namespace ns
 	public: //Getters
 
 		//Ottiene handle alla finestra
-		inline void* window() {
-			return _wnd_handle;
+		inline window get_window() {
+			return window(_wnd_handle);
 		}
 
 	public:

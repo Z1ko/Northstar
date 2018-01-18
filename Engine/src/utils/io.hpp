@@ -4,5 +4,5 @@
 namespace ns
 {
 	//Carica file di testo
-	string load_file_text(path filepath);
+	string load_file_text(path& filepath);
 }

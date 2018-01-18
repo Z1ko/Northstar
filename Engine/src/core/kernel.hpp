@@ -4,6 +4,8 @@
 #include "service.hpp"
 #include "event.hpp"
 
+#include "../utils/settings.hpp"
+
 namespace ns
 {
 	class application;
@@ -21,6 +23,15 @@ namespace ns
 
 		//Avvia applicazione
 		void start(application* app);
+
+		//Ritorna le opzioni principali caricate all'avvio
+		inline json_settings& settings() {
+			return _settings;
+		}
+
+	private:
+		//Carica impostazioni dalla posizione standard e le processa
+		void load_standard_options();
 
 	public: //Services
 
@@ -45,8 +56,8 @@ namespace ns
 		//Indica se è stato richiesto di uscire
 		bool _running = true;
 
-		//Handle alla finestra della piattaforma
-		//void* _window_handle;
+		//Contiene le opzioni principali
+		json_settings _settings;
 
 		//SERVIZI CORE
 		platform_service*	_platform;
@@ -55,5 +66,3 @@ namespace ns
 		scene_service*		_scene;
 	};
 }
-
-#include "kernel.hpp"

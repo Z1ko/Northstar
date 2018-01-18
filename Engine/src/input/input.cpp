@@ -147,7 +147,7 @@ namespace ns
 	//Setta la posizione del mouse (relativa alla finestra)
 	void input_service::set_mouse_position(u32 x, u32 y)
 	{
-		HWND window = (HWND)_platform->window();
+		HWND window = (HWND)_platform->get_window().handle();
 		POINT point{ x, y };
 
 		ScreenToClient(window, &point);
