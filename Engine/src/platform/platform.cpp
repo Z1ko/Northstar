@@ -67,7 +67,7 @@ namespace ns
 
 		//ERRORE
 		if (!RegisterClassEx(&wclass)) {
-			printf("\nErrore creazione contexto W32");
+			log::get("engine")->error("Errore creazione constesto Win32");
 		}
 
 		//VALORI STANDARD

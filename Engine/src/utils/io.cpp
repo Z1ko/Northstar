@@ -17,7 +17,7 @@ namespace ns
 		}
 
 		//ERRORE
-		printf("\nErrore caricamento file da %s", filepath.text().c_str());
+		log::get("engine")->warn("Errore durante il caricamento di {}", filepath.text());
 		return string("invalid filepath!");
 	}
 }

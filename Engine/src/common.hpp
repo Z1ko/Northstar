@@ -1,5 +1,6 @@
 #pragma once
 
+//STDLIB
 #include <string>
 #include <unordered_map>
 #include <sstream>
@@ -10,10 +11,17 @@
 #include <glew/glew.h>
 #include <gl/GL.h>
 
+//JSON
 #include <picojson/picojson.h>
+
+//LOG
+#include <spdlog/spdlog.h>
 
 namespace ns
 {
+	//Console
+	namespace log = spdlog;
+
 	//Perchè sì
 	using namespace std;
 

@@ -25,6 +25,9 @@ namespace ns
 	//Inizializza tutti i servizi e macro standard, carica impostazioni etc
 	kernel::kernel(char argc, char** argv)
 	{
+		//Crea console di base
+		this->create_console();
+
 		//Cartella dov'è presente l'exe e carica opzioni
 		path::add_macro("root", find_root_directory(argv[0]));
 		this->load_standard_options();
@@ -47,11 +50,15 @@ namespace ns
 	//Carica impostazioni dalla posizione standard e le processa
 	void kernel::load_standard_options() {
 		//Carica opzioni principali
+		auto log = log::get("engine");
 		if (_settings.load("@(root)/options.json")) {
 			json_value macros = _settings.find("macros");
 			if (macros) {
+				log->info("Caricamento macros...");
 				for (auto& macro : macros.values()) {
-					path::add_macro(macro.first, path::resolve(macro.second.get<string>()));
+					string value = macro.second.get<string>();
+					log->info("\t{} -> {}", macro.first, value);
+					path::add_macro(macro.first, path::resolve(value));
 				}
 			}
 		}
@@ -60,9 +67,6 @@ namespace ns
 	//Avvia applicazione
 	void kernel::start(application* app)
 	{
-		//Crea console di base
-		create_console();
-
 		//Inizializza tutti i servizi, in base alla priorità di update
 		for (service* serv : _updateList)
 			serv->initialize();
@@ -97,27 +101,33 @@ namespace ns
 
 		freopen("CON", "w", stdout);
 		SetConsoleOutputCP(CP_UTF8);
+
+		auto console = log::stdout_color_st("engine");
+		console->set_pattern("[%H:%M:%S:%e][%L] %v");
+
+		console->critical("Northstar attiva...");
 	}
 
 	//Aggiunge servizio
 	void kernel::add_service(service* service)
 	{
 		//Controlla che non ci siano servizi con la stessa priorità
-		for(auto serv : _services)
-		{
+		for(auto serv : _services) {
 			if (serv->_renderPriority == service->_renderPriority)
-				printf("\n\"%s\" e \"%s\" condividono la stessa priorita' di rendering!",
-					serv->_name.c_str(), service->_name.c_str());
-
+				log::get("engine")->error("\n\"{}\" e \"{}\" condividono la stessa priorita' di rendering!",
+					serv->_name, service->_name);
 			if (serv->_renderPriority == service->_renderPriority)
-				printf("\n\"%s\" e \"%s\" condividono la stessa priorita' di updating!",
-					serv->_name.c_str(), service->_name.c_str());
+				log::get("engine")->error("\n\"{}\" e \"{}\" condividono la stessa priorita' di rendering!",
+					serv->_name, service->_name);
 		}
 
 		_services.push_back(service);
 
 		_updateList.insert(service);
 		_renderList.insert(service);
+
+		log::get("engine")->info("Aggiunto nuovo servizio: {}, priority : (update : {}, rendering : {})", 
+			service->_name, service->_updatePriority, service->_renderPriority);
 	}
 
 	//Ottiene un servizio registrato, ritorna null se non esiste

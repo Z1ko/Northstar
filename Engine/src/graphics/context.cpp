@@ -34,7 +34,7 @@ namespace ns
 		if (res == 0)
 		{
 			//ERRORE
-			printf("\nIl pixel formato richiesto non è disponibile");
+			log::get("engine")->critical("Il formato pixel richiesto non è disponibile!");
 			return;
 		}
 		SetPixelFormat((HDC)_device, res, &pfd);
