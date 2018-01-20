@@ -9,7 +9,7 @@
 namespace ns
 {
 	enum class key_codes : u32 //VK_WIN32
-	{
+	{ 
 		A = 0x41,
 		B = 0x42,
 		C = 0x43,

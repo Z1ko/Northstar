@@ -78,6 +78,9 @@
     <ClInclude Include="src\graphics\renderer.hpp">
       <Filter>File di intestazione</Filter>
     </ClInclude>
+    <ClInclude Include="src\graphics\buffer.hpp">
+      <Filter>File di intestazione</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\utils\path.cpp">

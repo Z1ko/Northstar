@@ -17,10 +17,11 @@ namespace ns
 		_window = _platform->get_window();
 		_context.attach_window(_window.handle());
 
-		//Per debug
-		//glMatrixMode(GL_PROJECTION);
-		//glLoadIdentity();
-		//glOrtho(0.0, _window.width(), _window.height(), 0, -0.1, 100.0);
+		//Setta callback
+		glEnable(GL_DEBUG_OUTPUT);
+		glEnable(GL_DEBUG_OUTPUT_SYNCHRONOUS);
+		glDebugMessageControl(GL_DONT_CARE, GL_DONT_CARE, GL_DONT_CARE, 0, NULL, true);
+		glDebugMessageCallback(opengl_callback, this);
 	}
 
 	//Aggiorna renderer e pulisce lo schermo
@@ -41,5 +42,27 @@ namespace ns
 	void graphics_service::post_update() {
 		for (auto* renderer : _renderers)
 			renderer->pre_render();
+	}
+
+	//Callback di OpenGL
+	void APIENTRY opengl_callback(GLenum source, GLenum type, GLuint id, GLenum severity,
+		GLsizei length, const GLchar* message, const void* param)
+	{
+		auto& logger = log::get("engine");
+		switch (severity)
+		{
+		case GL_DEBUG_SEVERITY_HIGH:
+			logger->critical(message);
+			break;
+		case GL_DEBUG_SEVERITY_MEDIUM:
+			logger->warn(message);
+			break;
+		case GL_DEBUG_SEVERITY_LOW:
+			logger->warn(message);
+			break;
+		case GL_DEBUG_SEVERITY_NOTIFICATION:
+			logger->info(message);
+			break;
+		}
 	}
 }

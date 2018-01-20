@@ -35,6 +35,11 @@ namespace ns
 		}
 
 	private:
+		//Callback di OpenGL
+		friend void APIENTRY opengl_callback(GLenum source, GLenum type, GLuint id, GLenum severity,
+			GLsizei length, const GLchar* message, const void* param);
+
+	private:
 		//Contesto opengl che permette il rendering
 		gl_context _context;
 

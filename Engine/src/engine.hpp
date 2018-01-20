@@ -24,6 +24,7 @@
 
 #include "graphics/context.hpp"
 #include "graphics/graphics.hpp"
+#include "graphics/buffer.hpp"
 #include "graphics/texture.hpp"
 #include "graphics/shader.hpp"
 

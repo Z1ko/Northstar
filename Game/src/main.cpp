@@ -8,10 +8,14 @@ public:
 	sprite(ident entity_id, f32 x, f32 y, f32 w, f32 h)
 		: component(entity_id), x(x), y(y), w(w), h(h)
 	{
+		r = (f32)(rand() % 255) / 255.0f;
+		g = (f32)(rand() % 255) / 255.0f;
+		b = (f32)(rand() % 255) / 255.0f;
 	}
 
 public:
 	f32 x, y, w, h;
+	f32 r, g, b;
 };
 
 class sprite_renderer : public renderer
@@ -36,6 +40,7 @@ public:
 
 		glBegin(GL_QUADS);
 		for (auto* sprite : _sprites) {
+			glColor3f(sprite->r, sprite->g, sprite->b);
 			glVertex2f(sprite->x,  sprite->y);
 			glVertex2f(sprite->x + sprite->w,  sprite->y);
 			glVertex2f(sprite->x + sprite->w,  sprite->y + sprite->h);
@@ -65,17 +70,26 @@ public:
 		NS_EVENT_SUBSCRIBE(_input->mouse_event, this, &debug_service::on_mouse_move);
 
 		_scene = (ns::scene_service*)_kernel->get_service("scene");
-		_scene->register_template("human", [](ns::entity* base) -> ns::entity* {
-			base->assign<sprite>(30.0f, 20.0f, 100.0f, 100.0f);
+		_scene->register_template("tile", [](ns::entity* base) -> ns::entity* {
+			base->assign<sprite>(0.0f, 0.0f, 10.0f, 10.0f);
 			return base;
 		});
-
-		player = _scene->create_template_entity("human", "player");
-		sprite* pos = player->get<sprite>();
 
 		_graphics = (graphics_service*)_kernel->get_service("graphics");
 		_renderer = new sprite_renderer(_graphics, _scene);
 		_graphics->add_renderer(_renderer);
+
+		//Crea mappa
+		for (u32 y = 0; y < _graphics->get_window().width() / 10; ++y) {
+			for (u32 x = 0; x < _graphics->get_window().height() / 10; ++x) {
+
+				entity* tile = _scene->create_template_entity("tile");
+				sprite* sprt = tile->get<sprite>();
+
+				sprt->x = (f32)x * 10.0f;
+				sprt->y = (f32)y * 10.0f;
+			}
+		}
 
 		//ns::surface spritesheat("@(root)logo.png");
 		//_logo = ns::texture(&spritesheat);
@@ -95,17 +109,21 @@ public:
 	//Quando serve un testo
 	void on_text_event(ns::text_event_data* data) {
 
+		/*
 		if (data->value == '\r')
 			printf("\n");
 		else 
 			printf("%c", data->value);
+			*/
 	}
 
 	//Quando viene mosso il cursore
 	void on_mouse_move(ns::mouse_event_data* data)
 	{
+		/*
 		printf("\nMouse:\t\tP(%i, %i)\t\tD(%i, %i)", 
 			data->position.x, data->position.y, data->delta.x, data->delta.y);
+			*/
 	}
 
 	void update() override { }
@@ -124,18 +142,37 @@ private:
 	//ns::texture _logo;
 };
 
+struct vertex
+{
+	f32 x, y, z;
+	f32 r, g, b;
+};
+
 class sandbox : public ns::application
 {
-	const u32 tile_w = 16;
-	const u32 tile_h = 16;
+	vector<vertex> vertices = {
+		{ 0.0f, 0.0f, 0.0f,	  1.0f, 0.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f,	  0.0f, 1.0f, 0.0f },
+		{ 0.0f, 0.0f, 0.0f,	  0.0f, 0.0f, 1.0f },
+	};
+
+	vector<index> indices = {
+		0,1,2, 
+		2,3,0
+	};
 
 public:
 	void initialize() override {
-		_window = _platform->get_window();
+
+		vertex_layout<vertex> layout;
+		layout.add(3, ns_float, 0);
+		layout.add(3, ns_float, offsetof(vertex, r));
+
+		_mesh_buffer = new static_mesh_buffer<vertex, index>(vertices, layout, indices);
 	}
 
 private:
-	window _window;
+	static_mesh_buffer<vertex, index>* _mesh_buffer;
 };
 
 int main(int argc, char** argv)

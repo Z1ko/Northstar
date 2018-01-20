@@ -89,6 +89,8 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <MinimalRebuild>false</MinimalRebuild>
     </ClCompile>
     <PostBuildEvent>
       <Command>copy /Y "$(ProjectDir)bin\debug\NS32.lib" "$(SolutionDir)Game\lib\"</Command>
@@ -115,6 +117,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
@@ -140,6 +143,7 @@
   <ItemGroup>
     <ClInclude Include="src\common.hpp" />
     <ClInclude Include="src\core\application.hpp" />
+    <ClInclude Include="src\graphics\buffer.hpp" />
     <ClInclude Include="src\graphics\context.hpp" />
     <ClInclude Include="src\core\event.hpp" />
     <ClInclude Include="src\core\kernel.hpp" />

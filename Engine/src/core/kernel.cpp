@@ -54,10 +54,10 @@ namespace ns
 		if (_settings.load("@(root)/options.json")) {
 			json_value macros = _settings.find("macros");
 			if (macros) {
-				log->info("Caricamento macros...");
+				log->debug("Caricamento macros...");
 				for (auto& macro : macros.values()) {
 					string value = macro.second.get<string>();
-					log->info("\t{} -> {}", macro.first, value);
+					log->debug("\t{} -> {}", macro.first, value);
 					path::add_macro(macro.first, path::resolve(value));
 				}
 			}
@@ -109,7 +109,9 @@ namespace ns
 		auto console = log::stdout_color_st("engine");
 		console->set_pattern("[%H:%M:%S:%e][%L] %v");
 
-		console->critical("Northstar attiva...");
+#ifdef _DEBUG
+		console->set_level(log::level::debug);
+#endif
 	}
 
 	//Aggiunge servizio
@@ -130,7 +132,7 @@ namespace ns
 		_updateList.insert(service);
 		_renderList.insert(service);
 
-		log::get("engine")->info("Aggiunto nuovo servizio: {}, priority : (update : {}, rendering : {})", 
+		log::get("engine")->info("Servizio: \"{}\", (update : {}, rendering : {})", 
 			service->_name, service->_updatePriority, service->_renderPriority);
 	}
 
